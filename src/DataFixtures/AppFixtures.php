@@ -37,7 +37,7 @@ class AppFixtures extends Fixture
             $manager->persist($ingredient);
         }
 
-        for ($i = 0; $i < 25; $i++) {
+        for ($j = 0; $j < 25; $j++) {
             # code...
             $recipe = new Recipe();
             $recipe->setName($this->faker->word())->setTime(mt_rand(1, 1440))->setNbPeople(mt_rand(0, 1) === 1 ? mt_rand(1, 50) : null)->setDifficulty(mt_rand(0, 1) === 1 ? mt_rand(1, 5) : null)->setDescription($this->faker->text(300))->setPrice(mt_rand(0, 1) === 1 ? mt_rand(1, 1000) : null)->setIsFavorite(mt_rand(0, 1) === 1 ? true : false);
@@ -45,6 +45,7 @@ class AppFixtures extends Fixture
                 # code...
                 $recipe->addIngredient($ingredients[mt_rand(0, count($ingredients) - 1)]);
             }
+            $manager->persist($recipe);
         }
         $manager->flush();
     }
