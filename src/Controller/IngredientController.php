@@ -8,6 +8,7 @@ use App\Repository\IngredientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,15 +49,18 @@ class IngredientController extends AbstractController
         $form = $this->createForm(IngredientType::class, $ingredient);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $ingredient = $form->getData();
-            $manager->persist($ingredient);
-            $manager->flush();
-            $this->addFlash('success', 'Votre ingrédient a été créé avec succès');
-            return $this->redirectToRoute('app_ingredient');
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $ingredient = $form->getData();
+                $manager->persist($ingredient);
+                $manager->flush();
+                $this->addFlash('success', 'Votre ingrédient a été créé avec succès');
+                return $this->redirectToRoute('app_ingredient');
+            }
         }
         return $this->render('pages/ingredient/createIngredient.html.twig', [
-            'form' => $form->createView()
+            'form' => $form,
+
         ]);
     }
 
@@ -76,7 +80,7 @@ class IngredientController extends AbstractController
         }
 
         return $this->render('pages/ingredient/update.html.twig', [
-            'form' => $form->createView()
+            'form' => $form
         ]);
     }
 }
