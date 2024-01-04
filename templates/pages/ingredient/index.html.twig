@@ -25,6 +25,8 @@ Mes ingrédients - Project
         <th scope="col">Nom</th>
         <th scope="col">Prix</th>
         <th scope="col">Date de création</th>
+        <th scope="col">Modification</th>
+        <th scope="col">Suppresion</th>
       </tr>
     </thead>
     <tbody>
@@ -38,6 +40,11 @@ Mes ingrédients - Project
           <a 
           href="{{ path('app_ingredient_update', { id: ingredient.id }) }}" 
           class="btn btn-info">Modifier</a>
+        </td>
+        <td>
+          <a 
+          href="{{ path('app_ingredient_delete', { id: ingredient.id }) }}" 
+          class="btn btn-danger">Supprimer</a>
         </td>
       </tr>
       {% endfor %}
