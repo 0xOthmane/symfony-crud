@@ -69,4 +69,18 @@ class RecipeController extends AbstractController
             'form' => $form
         ]);
     }
+
+    #[Route('/recette/delete/{id}', 'app_recipe_delete', methods: ['GET'])]
+    public function delete(RecipeRepository $recipeRepository, int $id, EntityManagerInterface $manager): Response
+    {
+        $recipe = $recipeRepository->findOneBy(['id' => $id]);
+        if (!$recipe) {
+            $this->addFlash('success', 'Votre recette n\'a pas été trouvée !');
+            return $this->redirectToRoute('app_recipe');
+        }
+        $manager->remove($recipe);
+        $manager->flush();
+        $this->addFlash('success', 'Votre recette a été supprimée avec succès !');
+        return $this->redirectToRoute('app_recipe');
+    }
 }

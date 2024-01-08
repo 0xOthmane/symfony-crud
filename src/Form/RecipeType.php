@@ -60,6 +60,7 @@ class RecipeType extends AbstractType
                     'min' => 1,
                     'max' => 50
                 ],
+                'required'=> false,
                 'label' => 'nombre de personnes',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
@@ -113,7 +114,7 @@ class RecipeType extends AbstractType
             ])
             ->add('is_favorite', CheckboxType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-check-input ms-3 mt-3'
                 ],
                 'label' => 'Favori ?',
                 'label_attr' => [

@@ -34,7 +34,9 @@
         <td>
           <a href="{{ path('app_recipe_edit',{id:recipe.id}) }}" class="btn btn-info">Modifier</a>
         </td>
-        <td>TODO</td>
+        <td>
+          <a href="{{ path('app_recipe_delete', {id :recipe.id}) }}" class="btn btn-danger">Supprimer</a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
