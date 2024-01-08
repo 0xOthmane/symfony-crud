@@ -19,14 +19,15 @@ class Recipe
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    
+    private ?int $id = null;
+    
     #[Assert\Length(
         min:2,
         max: 50,
         minMessage: 'Name must be at least {{ limit }} characters',
         maxMessage: 'Name cannot be at longer than {{ limit }} characters',
     )]
-    private ?int $id = null;
-
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 

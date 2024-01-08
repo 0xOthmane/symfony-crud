@@ -40,7 +40,7 @@ class RecipeController extends AbstractController
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $recipe = $form->getData();
             $manager->persist($recipe);
             $manager->flush();
@@ -48,6 +48,24 @@ class RecipeController extends AbstractController
             return $this->redirectToRoute('app_recipe');
         }
         return $this->render('pages/recipe/create.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/recette/edit/{id}', 'app_recipe_edit', methods: ['GET', 'POST'])]
+    public function edit(RecipeRepository $recipeRepository, int $id, Request $request, EntityManagerInterface $manager): Response
+    {
+        $recipe = $recipeRepository->findOneBy(['id' => $id]);
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $recipe = $form->getData();
+            $manager->persist($recipe);
+            $manager->flush();
+            $this->addFlash('success', 'Votre recette a été avec succès !');
+            return $this->redirectToRoute('app_recipe');
+        }
+        return $this->render('pages/recipe/edit.html.twig', [
             'form' => $form
         ]);
     }
